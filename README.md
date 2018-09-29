@@ -1,2 +1,2 @@
 # AddressFinder
-This script written in Python lets you enter address and city and then it open browser and adds your input in google map's search field
+This script written in Python automates searching in Google Maps by letting the user enter the address and city and then opens browser for him and displays immediate results of entered location.
