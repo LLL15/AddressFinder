@@ -1,10 +1,10 @@
 #! /usr/bin/python3
-import sys
+import sys, webbrowser
 
 try:
-    import pyperclip, webbrowser
+    import pyperclip
 except ImportError:
-    print('!Error - One or multiple modules not found, check README for help!\nExiting...')
+    print('!Error - pyperclip module not found, check README for help!\nExiting...')
     sys.exit()
 
 sys.argv = input('Enter address and city: ')
