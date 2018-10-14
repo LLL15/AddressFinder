@@ -9,7 +9,7 @@ This really short and simple script written in Python automates searching in Goo
 1. Make sure you have pyperclip module installed.
 To install pyperclip type this in terminal:
 
-sudo pip install pyperclip
+sudo pip3 install pyperclip
 
 OR go to https://pypi.org/project/pyperclip/#files and download it from there.
 
@@ -21,6 +21,9 @@ chmod +x gmaps.py
 
 ./gmaps.py
 
+***OR:
+
+python3 gmaps.py
 
 NOTICE:
 - If you spot any bug be sure to contact me through github and i'll make sure that bug dissapears.
