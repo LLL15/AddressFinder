@@ -1,46 +1,60 @@
 #! /usr/bin/python3
-# Imports needed modules
-import sys, webbrowser
+import sys
+import webbrowser
 
-try: # try/except for importing pyperclip module
+try:   # try/except block for importing pyperclip module
     import pyperclip
-except ImportError: # If pyperclip was not found, error is displayed to user and program exits
-    print('!Error - pyperclip module not found, check README for help!\nExiting...')
+except ImportError:   # If pyperclip was not found, error is displayed to the user and program terminates
+    print('Error - pyperclip module not found, check README for help!\nExiting...')
     sys.exit()
 
 
-# openGMaps function is where it all happens
+# Taking user's input for wishful location and storing it into sys.argv
+try:   # try/except block for catching if user hits CTRL+C or CTRL+D
+    sys.argv = input('Enter address and city: ')
+except (KeyboardInterrupt, EOFError):
+    print("Exiting...")
+    sys.exit(0)
+
+
+# openGMaps is the main function
 def openGMaps(args):
     while True:
+        try:
+            if len(args) > 1:   # If length of arguments is greater than 1
+                # Address variable is created where it stores all joined arguments together (user's input)
+                address = ''.join(args[:])
 
-        if len(args) > 1: # If len of args is greater than 1
-            # It creates address variable where it stored all joined arguments (user's input)
-            address = ''.join(args[:])
+            else:   # Otherwise when nothing is entered
+                # it asks the user if it shall copy first item from his clipboard and store it into address variable
+                copy = input("Copy location from clipboard? [Y/N]:")
 
-        else:
-            # Then it assumes that the user's wishful location is in his clipboard
-            # so it stores the first thing on his clipboard into address variable.
-            address = pyperclip.paste()
+                if copy.lower() in ["yes", "y"]:
+                    address = pyperclip.paste()
+                else:   # if user says anything else,loop breaks and function ends
+                    break
 
-        # Out of all control-flow statements webbrowser's open function is called which will
-        # open a browser with starting URL and append address variable to that URL
-        webbrowser.open('https://www.google.com/maps/place/' + address)
+            # Out of all control-flow statements webbrowser's open function is called which will
+            # open a browser with starting URL and append address variable to that URL
+            webbrowser.open('https://www.google.com/maps/place/' + address)
 
-        # Asks user if he wants to continue and stores the answer in again variable
-        again = input('Do you want to continue? (yes/no):')
+            # Asks user if he wants to continue and stores the answer in again variable
+            again = input('Do you want to continue? [Y/N]:')
 
-        if again == 'yes': # If answer is yes, variable args is assigned again but with different value
-            args = input('Enter another address and city: ')
-            continue # Also it comes back at the start of while loop and does all the work again.
-        else:
-            break # If anything else is typed as the answer, loop breaks.
+            if again.lower() in ["yes", "y"]:  # If answer is yes
+                args = input('Enter another location: ')   # parameter args prompts user again for a location
+                continue   # Jumps back to start of loop with newly assigned args
+
+            else:   # If anything else is typed,loop breaks and function ends
+                break
+
+        except (KeyboardInterrupt, EOFError):   # If user hits CTRL+C or CTRL+D
+            print("Exiting...")
+            sys.exit(0)
 
 
-# Taking user's input for wishful location and storing it in sys.argv
-sys.argv = input('Enter address and city: ')
 # Calling openGMaps with sys.argv as the argument.
 openGMaps(sys.argv)
 
-# When loop breaks, godbye message is printed and program is over.
-print('Godbye!')
-
+# After function is over,goodbye message is printed and script ends
+print("Goodbye...")
