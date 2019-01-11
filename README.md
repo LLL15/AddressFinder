@@ -1,27 +1,28 @@
 # GoogleMapsAutomation
-This really short and simple script written in Python automates searching in Google Maps by letting the user enter the address and city and then opens browser for him and displays immediate results of entered location.
+This really short Python script automates searching in Google Maps by letting the user enter the address and city of his desired location and then it automatically opens the browser and displays results of entered location to the user.
+
 
 
 
 ***PRE-REQUIREMENTS:
 
 
-1. Make sure you have pyperclip module installed.
-To install pyperclip type this in terminal:
+1. pyperclip module.
+To install pyperclip type this (terminal):
 
 sudo pip3 install pyperclip
 
 OR go to https://pypi.org/project/pyperclip/#files and download it from there.
 
 
-**INSTALLATION:
-Just give permissions to gmaps.py and run it:
+**EXECUTION:
+Give permissions to gmaps.py and run it:
 
 chmod +x gmaps.py
 
 ./gmaps.py
 
-***OR:
+**OR:
 
 python3 gmaps.py
 
