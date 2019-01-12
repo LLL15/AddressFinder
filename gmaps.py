@@ -4,22 +4,26 @@ import webbrowser
 
 try:   # try/except block for importing pyperclip module
     import pyperclip
-except ImportError:   # If pyperclip was not found, error is displayed to the user and program terminates
-    print('Error - pyperclip module not found, check README for help!\nExiting...')
-    sys.exit()
+except ImportError:   # If pyperclip was not found...
+    print('Error - pyperclip module not found, check README for help!\nExiting...')   # error is displayed
+    sys.exit()   # program ends
 
 
-# Taking user's input for wishful location and storing it into sys.argv
-try:   # try/except block for catching if user hits CTRL+C or CTRL+D
+try:   # try block for taking user's input for wishful location
+    print("[!]Press q or quit to quit anytime[!]")
     sys.argv = input('Enter address and city: ')
+
+    # if user types quit or q program quits
+    if sys.argv == 'quit' or sys.argv == 'q':
+        sys.exit()
+# except block for catching if user hits CTRL+C or CTRL+D
 except (KeyboardInterrupt, EOFError):
-    print("Exiting...")
     sys.exit(0)
 
 
 # openGMaps is the main function
-def openGMaps(args):
-    while True:
+def open_google_maps(args):
+    while 1:
         try:
             if len(args) > 1:   # If length of arguments is greater than 1
                 # Address variable is created where it stores all joined arguments together (user's input)
@@ -34,27 +38,26 @@ def openGMaps(args):
                 else:   # if user says anything else,loop breaks and function ends
                     break
 
-            # Out of all control-flow statements webbrowser's open function is called which will
+            # Out of control-flow statements webbrowser's open function is called which will
             # open a browser with starting URL and append address variable to that URL
             webbrowser.open('https://www.google.com/maps/place/' + address)
 
-            # Asks user if he wants to continue and stores the answer in again variable
-            again = input('Do you want to continue? [Y/N]:')
-
-            if again.lower() in ["yes", "y"]:  # If answer is yes
-                args = input('Enter another location: ')   # parameter args prompts user again for a location
+            # again stores new location that user enters
+            again = input('Enter another location: ').lower()
+            # if user decides to press q or type quit program quits
+            if again == 'q' or again == 'quit':
+                sys.exit()
+            # but if he typed anything else,args is assigned value of again
+            elif again != 'q' or again != 'quit':
+                args = again
                 continue   # Jumps back to start of loop with newly assigned args
 
-            else:   # If anything else is typed,loop breaks and function ends
-                break
-
         except (KeyboardInterrupt, EOFError):   # If user hits CTRL+C or CTRL+D
-            print("Exiting...")
             sys.exit(0)
 
 
-# Calling openGMaps with sys.argv as the argument.
-openGMaps(sys.argv)
+# Calling openGMaps function with sys.argv as the argument
+open_google_maps(sys.argv)
 
-# After function is over,goodbye message is printed and script ends
+# After function is over goodbye message is printed and script ends
 print("Goodbye...")
